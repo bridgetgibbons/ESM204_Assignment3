@@ -1,0 +1,33 @@
+---
+title: "ESM204_Assignment3"
+author: "Bridget Gibbons"
+date: "5/14/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r packages, include = FALSE}
+#Load packages
+
+library(tidyverse)
+```
+
+```{r load data, include = FALSE}
+#read in the data
+
+survey_response_data <- read_csv("HW3Data.csv")
+```
+
+```{r part 1}
+#run a binary linear model
+
+survey_yes_blm <- glm(vote ~ risk + bid + NEP + income + age, family = "binomial", data = survey_response_data)
+  
+summary(survey_yes_blm)
+
+#put in a stargazer table
+```
+
