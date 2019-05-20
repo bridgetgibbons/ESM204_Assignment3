@@ -151,5 +151,12 @@ $9,675,000 - $7,000,000 = $2,675,000
 Yes
 
 ##7
+20*Z = $1,000
+Z = more than $50/ton
 
+###8
+
+a) If a risk reduction of 4% saves 1 whale, 15 whales would be saved by the program
+
+b) 
 
