@@ -18,16 +18,138 @@ library(tidyverse)
 ```{r load data, include = FALSE}
 #read in the data
 
-survey_response_data <- read_csv("HW3Data.csv")
+survey_data <- read_csv("HW3Data.csv")
 ```
 
-```{r part 1}
+###1.
+
+Data colums are: 1) risk - level of risk reduction, 2) bid - annual household payment, 3) vote - 1 is yes, 0 is no, 4) NEP - measurement of environmental concern, 5) income, 6) age
+
+```{r part 1, include = FALSE}
 #run a linear regression
 
-survey_yes_lm <- lm(vote ~ risk + bid + NEP + income + age, data = survey_response_data)
-  
-summary(survey_yes_lm)
+whales_lm <- lm(vote ~ risk + bid + NEP + income + age, data = survey_data)
+summary(whales_lm)
 
-#put in a stargazer table
+#save all the coefficients
+
+intercept <- whales_lm$coefficients[1]
+risk <- whales_lm$coefficients[2]
+bid <- abs(whales_lm$coefficients[3])
+nep <- whales_lm$coefficients[4]
+inc_onepercent <- whales_lm$coefficients[5]
+inc_poor <- whales_lm$coefficients[6]
+inc_rich <- whales_lm$coefficients[7]
+inc_veryrich <- whales_lm$coefficients[8]
+age_50 <- whales_lm$coefficients[9]
+age_40 <- abs(whales_lm$coefficients[10])
+age_60 <- abs(whales_lm$coefficients[11])
+age_30 <- whales_lm$coefficients[12]
 ```
+
+**Regression Model Output:**  
+  
+$Probability(Voting~Yes) = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) - `r round(age_40, digits=4)`(Age~to~40) + `r round(age_50, digits=4)`(Age~to~50) - `r round(age_60, digits=4)`(Age~to~60) + `r round(inc_onepercent, digits=4)`(Income~One~Percent) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(inc_veryrich,digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(Risk~Reduction)$
+
+Put in a stargazer table?
+
+###2. 
+
+Assume p(yes) is ($p = 0.7$), assume an age to 30, income rich, and the average NEP (38.366).
+
+WTP:
+$0.7 = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0)$
+
+```{r, include=FALSE}
+#A reduction by 4% saves a single whale, according to the ratio in the survey. Find the WTP for vessel speed reduction programs of 0 (risk) and compare to the WTP for vessel speed reduction of 4 (risk) to find WTP for saving one whale.
+
+#average of the yes votes:
+avg_vote <- mean(survey_data$vote)
+#0.7
+
+#average of the NEP:
+nep_avg <- mean(survey_data$NEP)
+#38.366
+
+#bid if risk reduction is zero:
+bid_zero <- (intercept + age_30 + inc_rich + (nep*nep_avg) + (risk*0) - avg_vote)/bid
+#39.5
+
+#Bid if risk is .04
+bid_four <- (intercept + age_30 + inc_rich + (nep*nep_avg) + (risk*4) - avg_vote)/bid
+#42.3
+```
+
+Value of one whale = 42.3 - 39.5 = $2.8 per Santa Barbara resident
+
+###3.
+
+```{r, include = FALSE}
+#Pick three random respondents from the table: 47, 135, 371
+
+risk60_40 <- slice(survey_data, 40)
+
+risk60_135 <- slice(survey_data, 135)
+
+risk60_372 <- slice(survey_data, 372)
+```
+
+Individual 40:
+$`r avg_vote` = `r round(intercept, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$
+
+Individual 135:
+$`r avg_vote` = `r round(intercept, digits = 4)` + `r round(inc_onepercent, digits=4)`(Income~One~Percent) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$
+
+Individual 372:
+$`r avg_vote` = `r round(intercept, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(inc_veryrich, digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$
+
+
+```{r, include = FALSE}
+
+bid_40 <- (intercept + age_50 + inc_poor + (nep*34) + (risk*60) - avg_vote)/bid
+#2.3
+
+bid_135 <- (intercept + inc_onepercent + (nep*50) + (risk*60) - avg_vote)/bid
+#236
+
+bid_372 <- (intercept + inc_veryrich + age_50 + (nep*48) + (risk*60) - avg_vote)/bid
+#251
+
+```
+
+Individual 40:2.3
+Individual 135:236
+Individual 372: 251
+
+###4
+Assume average prob of voting yes is ($p = 0.7$). Use average income bracket (middle), average age bracket (to 50), and average NEP (38.366) to find WTP:
+
+$`r avg_vote` = `r round(int, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
+
+```{r, include = FALSE}
+
+
+avg_bid_sb <- (intercept + age_50 + (nep*nep_avg) + (risk*60) - avg_vote)/bid
+
+#64.5
+
+```
+
+Average WTP in Santa Barbara households is $64.5.
+
+###5
+
+Total Benefits:
+$64.5*150,000 = 9,675,000 $
+
+Cost = $7 million
+
+Net Benefits:
+$9,675,000 - $7,000,000 = $2,675,000
+
+###6
+Yes
+
+##7
+
 
