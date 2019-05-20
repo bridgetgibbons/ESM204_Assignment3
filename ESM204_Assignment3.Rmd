@@ -22,11 +22,11 @@ survey_response_data <- read_csv("HW3Data.csv")
 ```
 
 ```{r part 1}
-#run a binary linear model
+#run a linear regression
 
-survey_yes_blm <- glm(vote ~ risk + bid + NEP + income + age, family = "binomial", data = survey_response_data)
+survey_yes_lm <- lm(vote ~ risk + bid + NEP + income + age, data = survey_response_data)
   
-summary(survey_yes_blm)
+summary(survey_yes_lm)
 
 #put in a stargazer table
 ```
