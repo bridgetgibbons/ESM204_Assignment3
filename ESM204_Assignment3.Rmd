@@ -54,32 +54,32 @@ $Probability(Voting~Yes) = `r round(intercept, digits = 4)` + `r round(age_30, d
 
 ###2. 
 
-Assume p(yes) is ($p = 0.714$), mode age is tothirty, mode income is one percent, and the average NEP (38.366).
+Use p(yes) = 0.5 which will give us the median willingness to pay, mode age is tothirty, mode income is one percent, and the average NEP (38.366).
 
 WTP:
-$0.714 = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_onepercent, digits=4)`(Income~One~Percnet) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0)$
+$0.5 = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_onepercent, digits=4)`(Income~One~Percnet) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0)$
 
 ```{r, include=FALSE}
 #A reduction by 4% saves a single whale, according to the ratio in the survey. Find the WTP for vessel speed reduction programs of 0 (risk) and compare to the WTP for vessel speed reduction of 4 (risk) to find WTP for saving one whale.
 
-#average of the yes votes:
-avg_vote <- mean(survey_data$vote)
-#0.714
+#p(yes) = 0.5 for median WTP:
+med_vote <- 0.5
+#0.5
 
 #average of the NEP:
 nep_avg <- mean(survey_data$NEP)
 #38.366
 
 #bid if risk reduction is zero:
-bid_zero <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*0) - avg_vote)/bid
-#40.8
+bid_zero <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*0) - med_vote)/bid
+#241
 
 #Bid if risk reduction is four:
-bid_four <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*4) - avg_vote)/bid
-#43.5
+bid_four <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*4) - med_vote)/bid
+#244
 ```
 
-Value of one whale = 43.5 - 40.8 = $2.7 per Santa Barbara resident
+Value of one whale = 244 - 4241 = $3 per Santa Barbara resident
 
 ###3.
 
@@ -94,56 +94,56 @@ risk60_372 <- slice(survey_data, 372)
 ```
 
 Individual 40:
-$`r avg_vote` = `r round(intercept, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$
+$`r med_vote` = `r round(intercept, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$
 
 Individual 135:
-$`r avg_vote` = `r round(intercept, digits = 4)` + `r round(inc_onepercent, digits=4)`(Income~One~Percent) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$
+$`r med_vote` = `r round(intercept, digits = 4)` + `r round(inc_onepercent, digits=4)`(Income~One~Percent) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$
 
 Individual 372:
-$`r avg_vote` = `r round(intercept, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(inc_veryrich, digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$
+$`r med_vote` = `r round(intercept, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(inc_veryrich, digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$
 
 
 ```{r, include = FALSE}
 
-bid_40 <- (intercept + age_50 + inc_poor + (nep*34) + (risk*60) - avg_vote)/bid
+bid_40 <- (intercept + age_50 + inc_poor + (nep*34) + (risk*60) - med_vote)/bid
 #2.3
 
-bid_135 <- (intercept + inc_onepercent + (nep*50) + (risk*60) - avg_vote)/bid
+bid_135 <- (intercept + inc_onepercent + (nep*50) + (risk*60) - med_vote)/bid
 #236
 
-bid_372 <- (intercept + inc_veryrich + age_50 + (nep*48) + (risk*60) - avg_vote)/bid
+bid_372 <- (intercept + inc_veryrich + age_50 + (nep*48) + (risk*60) - med_vote)/bid
 #251
 
 ```
 
-Individual 40:2.3
-Individual 135:236
-Individual 372: 251
+Individual 40:202
+Individual 135:436
+Individual 372: 451
 
 ###4
-Assume average prob of voting yes is ($p = 0.7$). Use mode income bracket (one_percent), mode age bracket (to 30), and average NEP (38.366) to find WTP:
+Assume median prob of voting yes is ($p = 0.5$). Use mode income bracket (one_percent), mode age bracket (to 30), and average NEP (38.366) to find WTP:
 
-$`r avg_vote` = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(age_30, digits=4)`(Age~to~30) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
+$`r med_vote` = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(age_30, digits=4)`(Age~to~30) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
 
 ```{r, include = FALSE}
 
-avg_bid_sb <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*60) - avg_vote)/bid
+avg_bid_sb <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*60) - med_vote)/bid
 
-#82.5
+#283
 
 ```
 
-Average WTP in Santa Barbara households is $82.5.
+Average WTP in Santa Barbara households is $283.
 
 ###5
 
 Total Benefits:
-$82.5*150,000 = 12,375,000 $
+$283*150,000 = 42,450,000 $
 
 Cost = $7 million
 
 Net Benefits:
-$12,375,000 - $7,000,000 = $5,375,000
+$42,450,000 - $7,000,000 = $35,450,000
 
 ###6
 Yes
@@ -156,5 +156,5 @@ Z = more than $50/ton
 
 a) If a risk reduction of 4% saves 1 whale, 15 whales would be saved by the program
 
-b) $12,375,000? or 15 whales times 2.7 times 150,000 people?
+b) $42,450,000 because the net social benefit is equal to the benefits of the whales to santa barbara plus the carbon reduction benefits minus the implementation costs. At Z*, the carbon reduction benefits are equal to the program implementation costs, so those cancel out and we are left with the total benefit calculated in Part 5.
 
