@@ -51,36 +51,35 @@ age_30 <- whales_lm$coefficients[12]
   
 $Probability(Voting~Yes) = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) - `r round(age_40, digits=4)`(Age~to~40) + `r round(age_50, digits=4)`(Age~to~50) - `r round(age_60, digits=4)`(Age~to~60) + `r round(inc_onepercent, digits=4)`(Income~One~Percent) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(inc_veryrich,digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(Risk~Reduction)$
 
-Put in a stargazer table?
 
 ###2. 
 
-Assume p(yes) is ($p = 0.7$), assume an age to 30, income rich, and the average NEP (38.366).
+Assume p(yes) is ($p = 0.714$), mode age is tothirty, mode income is one percent, and the average NEP (38.366).
 
 WTP:
-$0.7 = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0)$
+$0.714 = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_onepercent, digits=4)`(Income~One~Percnet) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0)$
 
 ```{r, include=FALSE}
 #A reduction by 4% saves a single whale, according to the ratio in the survey. Find the WTP for vessel speed reduction programs of 0 (risk) and compare to the WTP for vessel speed reduction of 4 (risk) to find WTP for saving one whale.
 
 #average of the yes votes:
 avg_vote <- mean(survey_data$vote)
-#0.7
+#0.714
 
 #average of the NEP:
 nep_avg <- mean(survey_data$NEP)
 #38.366
 
 #bid if risk reduction is zero:
-bid_zero <- (intercept + age_30 + inc_rich + (nep*nep_avg) + (risk*0) - avg_vote)/bid
-#39.5
+bid_zero <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*0) - avg_vote)/bid
+#40.8
 
-#Bid if risk is .04
-bid_four <- (intercept + age_30 + inc_rich + (nep*nep_avg) + (risk*4) - avg_vote)/bid
-#42.3
+#Bid if risk reduction is four:
+bid_four <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*4) - avg_vote)/bid
+#43.5
 ```
 
-Value of one whale = 42.3 - 39.5 = $2.8 per Santa Barbara resident
+Value of one whale = 43.5 - 40.8 = $2.7 per Santa Barbara resident
 
 ###3.
 
@@ -122,30 +121,29 @@ Individual 135:236
 Individual 372: 251
 
 ###4
-Assume average prob of voting yes is ($p = 0.7$). Use average income bracket (middle), average age bracket (to 50), and average NEP (38.366) to find WTP:
+Assume average prob of voting yes is ($p = 0.7$). Use mode income bracket (one_percent), mode age bracket (to 30), and average NEP (38.366) to find WTP:
 
-$`r avg_vote` = `r round(int, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
+$`r avg_vote` = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(age_30, digits=4)`(Age~to~30) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
 
 ```{r, include = FALSE}
 
+avg_bid_sb <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*60) - avg_vote)/bid
 
-avg_bid_sb <- (intercept + age_50 + (nep*nep_avg) + (risk*60) - avg_vote)/bid
-
-#64.5
+#82.5
 
 ```
 
-Average WTP in Santa Barbara households is $64.5.
+Average WTP in Santa Barbara households is $82.5.
 
 ###5
 
 Total Benefits:
-$64.5*150,000 = 9,675,000 $
+$82.5*150,000 = 12,375,000 $
 
 Cost = $7 million
 
 Net Benefits:
-$9,675,000 - $7,000,000 = $2,675,000
+$12,375,000 - $7,000,000 = $5,375,000
 
 ###6
 Yes
@@ -158,5 +156,5 @@ Z = more than $50/ton
 
 a) If a risk reduction of 4% saves 1 whale, 15 whales would be saved by the program
 
-b) 
+b) $12,375,000? or 15 whales times 2.7 times 150,000 people?
 
