@@ -1,6 +1,6 @@
 ---
 title: "ESM204_Assignment3"
-author: "Bridget Gibbons"
+author: "Bridget Gibbons, Chase Brewster"
 date: "5/14/2019"
 output: html_document
 ---
@@ -49,17 +49,46 @@ age_30 <- whales_lm$coefficients[12]
 
 **Regression Model Output:**  
   
-$Probability(Voting~Yes) = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) - `r round(age_40, digits=4)`(Age~to~40) + `r round(age_50, digits=4)`(Age~to~50) - `r round(age_60, digits=4)`(Age~to~60) + `r round(inc_onepercent, digits=4)`(Income~One~Percent) + `r round(inc_poor, digits=4)`(Income~Poor) + `r round(inc_rich, digits=4)`(Income~Rich) + `r round(inc_veryrich,digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(Risk~Reduction)$
+Probability(Voting Yes) = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age to 30) - `r round(age_40, digits=4)`(Age to 40) + `r round(age_50, digits=4)`(Age to 50) - `r round(age_60, digits=4)`(Age to 60) + `r round(inc_onepercent, digits=4)`(Income One Percent) + `r round(inc_poor, digits=4)`(Income Poor) + `r round(inc_rich, digits=4)`(Income Rich) + `r round(inc_veryrich,digits=4)`(Income Very Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + $7.4x10^{-4}$(Risk Reduction)
 
+**Explanation of Coefficients:**
+
+Age:  
+
+*To 30:* All else equal, the average person in the Age to 30 bracket is expected to have a 0.0204 higher probability of voting yes on the VSR program than the average person in the Age over Sixty bracket.  
+
+*To 40:* All else equal, the average person in the Age to 40 bracket is expected to have a 0.0201 lower probability of voting yes on the VSR program than the average person in the Age over Sixty bracket.  
+
+*To 50:* All else equal, the average person in the Age to 50 bracket is expected to have a 0.01 higher probability of voting yes on the VSR program than the average person in the Age over Sixty bracket.  
+
+*To 60:* All else equal, the average person in the Age to 60 bracket is expected to have a 0.0162 lower probability of voting yes on the VSR program than the average person in the Age over Sixty bracket.
+
+Income:   
+
+*Poor:* All else equal, the average person in the Poor bracket is expected to have a 0.0027 higher probability of voting yes on the VSR program than the average person in the Middle bracket.  
+
+*Rich:* All else equal, the average person in the Rich bracket is expected to have a 0.0075 higher probability of voting yes on the VSR program than the average person in the Middle bracket.  
+
+*Very Rich:* All else equal, the average person in the Very Rich bracket is expected to have a 0.0468 higher probability of voting yes on the VSR program than the average person in the Middle bracket.  
+
+*One Percent:* All else equal, the average person in the One Percent bracket is expected to have a 0.0088 higher probability of voting yes on the VSR program than the average person in the Middle bracket.
+
+NEP: All else equal, every 1 unit increase in environmental concern is expected to increase the average person’s probability of voting yes on the VSR program by 0.0159.
+
+Bid: All else equal, every $1 increase in the program cost is expected to reduce the average person’s probability of voting yes on the VSR program by 0.0011.
+
+Risk: All else equal, every 1% increase in whale collision risk reduction is expected to increase the average person’s probability of voting yes on the VSR program by $7×10^{−4}$.
+
+
+Reference levels in the model are the middle income range and the age of over_sixty.
 
 ###2. 
-
-Use p(yes) = 0.5 which will give us the median willingness to pay, mode age is tothirty, mode income is one percent, and the average NEP (38.366).
+One prevented whale death equates to a 4% risk reduction. In order to calculate the value of a single prevented whale death, the above identified linear model was used to calculate the bid (willingness to pay) for a 0% reduction in risk and a 4% reduction in risk. The difference in the bids represents the value of one prevented whale death. The model incorporates p(yes) = 0.5, which will give us the median willingness to pay, mode age (to_thirty), mode income (one_percent), and the average NEP (38.366).
 
 WTP:
 $0.5 = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_onepercent, digits=4)`(Income~One~Percnet) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0)$
 
-```{r, echo = FALSE}
+```{r, include = FALSE}
 #A reduction by 4% saves a single whale, according to the ratio in the survey. Find the WTP for vessel speed reduction programs of 0 (risk) and compare to the WTP for vessel speed reduction of 4 (risk) to find WTP for saving one whale.
 
 #p(yes) = 0.5 for median WTP:
@@ -85,8 +114,10 @@ Value of one whale = 243.55 - 240.77 = $2.78 per Santa Barbara resident
 
 ###3.
 
+Three arbitrary individuals were selected from the dataset. The linear model was rearranged to output the bid, or willingness to pay, and the model inputs for age, income, and NEP were changed to match the respondent demographics. Risk reduction was set to 60% for each individual. 
+
 ```{r, include = FALSE}
-#Pick three random respondents from the table: 47, 135, 371
+#Pick three random respondents from the table: 47,135,371
 
 risk60_40 <- slice(survey_data, 40)
 
@@ -105,7 +136,7 @@ Individual 372:
 $`r med_vote` = `r round(intercept, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(inc_veryrich, digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$
 
 
-```{r, echo = FALSE}
+```{r, include = FALSE}
 
 bid_40 <- (intercept + age_50 + inc_poor + (nep*34) + (risk*60) - med_vote)/bid
 bid_40
@@ -120,17 +151,20 @@ bid_372
 #451.08
 
 ```
+Solving for bid:
 
-Individual 40:202.32
-Individual 135:435.92
-Individual 372: 451.08
+**Individual 40:** 202.32  
+
+**Individual 135:** 435.92  
+
+**Individual 372:** 451.08
 
 ###4
-Assume median prob of voting yes is ($p = 0.5$). Use mode income bracket (one_percent), mode age bracket (to 30), and average NEP (38.366) to find WTP:
+The mean WTP (bid) for a VSR program among all Santa Barbara households was calculated using a probability of voting yes of 0.5, the mode age (to_thirty), the mode income (one_percent), and the average NEP (38.366) in the linear model.
 
 $`r med_vote` = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(age_30, digits=4)`(Age~to~30) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
 
-```{r, echo = FALSE}
+```{r, include = FALSE}
 
 avg_bid_sb <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*60) - med_vote)/bid
 avg_bid_sb
@@ -142,6 +176,7 @@ avg_bid_sb
 Median WTP in Santa Barbara households is $282.52
 
 ###5
+The total benefit for a VSR program is equal to the number of households (150,000) times the mean WTP calculated above. 
 
 Total Benefits:
 $282.52*150,000 = 42,378,000 $
@@ -152,11 +187,13 @@ Net Benefits:
 $42,378,000 - $7,000,000 = $35,378,000
 
 ###6
-Yes
+The total benefit is greater than the $7,000,000 implementation costs, so the VSR program should be implemented.
 
 ##7
-20*Z = $1,000
-Z = more than $50/ton
+Z* is equal to the costs ($1,000) divided by the tons of carbon (20) and is equal to $50 per ton.
+
+20xZ* = $1,000
+Z* = $50/ton
 
 ###8
 

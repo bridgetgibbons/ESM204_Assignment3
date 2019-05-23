@@ -9,7 +9,7 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Bridget Gibbons" />
+<meta name="author" content="Bridget Gibbons, Chase Brewster" />
 
 
 <title>ESM204_Assignment3</title>
@@ -122,7 +122,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">ESM204_Assignment3</h1>
-<h4 class="author"><em>Bridget Gibbons</em></h4>
+<h4 class="author"><em>Bridget Gibbons, Chase Brewster</em></h4>
 <h4 class="date"><em>5/14/2019</em></h4>
 
 </div>
@@ -132,46 +132,66 @@ $(document).ready(function () {
 <h3>1.</h3>
 <p>Data colums are: 1) risk - level of risk reduction, 2) bid - annual household payment, 3) vote - 1 is yes, 0 is no, 4) NEP - measurement of environmental concern, 5) income, 6) age</p>
 <p><strong>Regression Model Output:</strong></p>
-<p><span class="math inline">\(Probability(Voting~Yes) = 0.1197 + 0.0204(Age~to~30) - 0.0201(Age~to~40) + 0.01(Age~to~50) - 0.0162(Age~to~60) + 0.0088(Income~One~Percent) + 0.0027(Income~Poor) + 0.0075(Income~Rich) + 0.0468(Income~Very~Rich) + 0.0159(NEP) - 0.0011(Bid) + 7\times 10^{-4}(Risk~Reduction)\)</span></p>
-<p>Put in a stargazer table?</p>
+<p>Probability(Voting Yes) = 0.1197 + 0.0204(Age to 30) - 0.0201(Age to 40) + 0.01(Age to 50) - 0.0162(Age to 60) + 0.0088(Income One Percent) + 0.0027(Income Poor) + 0.0075(Income Rich) + 0.0468(Income Very Rich) + 0.0159(NEP) - 0.0011(Bid) + <span class="math inline">\(7.4x10^{-4}\)</span>(Risk Reduction)</p>
+<p><strong>Explanation of Coefficients:</strong></p>
+<p>Age:</p>
+<p><em>To 30:</em> All else equal, the average person in the Age to 30 bracket is expected to have a 0.0204 higher probability of voting yes on the VSR program than the average person in the Age over Sixty bracket.</p>
+<p><em>To 40:</em> All else equal, the average person in the Age to 40 bracket is expected to have a 0.0201 lower probability of voting yes on the VSR program than the average person in the Age over Sixty bracket.</p>
+<p><em>To 50:</em> All else equal, the average person in the Age to 50 bracket is expected to have a 0.01 higher probability of voting yes on the VSR program than the average person in the Age over Sixty bracket.</p>
+<p><em>To 60:</em> All else equal, the average person in the Age to 60 bracket is expected to have a 0.0162 lower probability of voting yes on the VSR program than the average person in the Age over Sixty bracket.</p>
+<p>Income:</p>
+<p><em>Poor:</em> All else equal, the average person in the Poor bracket is expected to have a 0.0027 higher probability of voting yes on the VSR program than the average person in the Middle bracket.</p>
+<p><em>Rich:</em> All else equal, the average person in the Rich bracket is expected to have a 0.0075 higher probability of voting yes on the VSR program than the average person in the Middle bracket.</p>
+<p><em>Very Rich:</em> All else equal, the average person in the Very Rich bracket is expected to have a 0.0468 higher probability of voting yes on the VSR program than the average person in the Middle bracket.</p>
+<p><em>One Percent:</em> All else equal, the average person in the One Percent bracket is expected to have a 0.0088 higher probability of voting yes on the VSR program than the average person in the Middle bracket.</p>
+<p>NEP: All else equal, every 1 unit increase in environmental concern is expected to increase the average person’s probability of voting yes on the VSR program by 0.0159.</p>
+<p>Bid: All else equal, every $1 increase in the program cost is expected to reduce the average person’s probability of voting yes on the VSR program by 0.0011.</p>
+<p>Risk: All else equal, every 1% increase in whale collision risk reduction is expected to increase the average person’s probability of voting yes on the VSR program by <span class="math inline">\(7×10^{−4}\)</span>.</p>
+<p>Reference levels in the model are the middle income range and the age of over_sixty.</p>
 </div>
 <div id="section-1" class="section level3">
 <h3>2.</h3>
-<p>Assume p(yes) is (<span class="math inline">\(p = 0.714\)</span>), assume an age to 30, income rich, and the average NEP (38.366).</p>
-<p>WTP: <span class="math inline">\(0.714 = 0.1197 + 0.0204(Age~to~30) + 0.0075(Income~Rich) + 0.0159(NEP) - 0.0011(Bid) + 7\times 10^{-4}(0)\)</span></p>
-<p>Value of one whale = 42.3 - 39.5 = $2.8 per Santa Barbara resident</p>
+<p>One prevented whale death equates to a 4% risk reduction. In order to calculate the value of a single prevented whale death, the above identified linear model was used to calculate the bid (willingness to pay) for a 0% reduction in risk and a 4% reduction in risk. The difference in the bids represents the value of one prevented whale death. The model incorporates p(yes) = 0.5, which will give us the median willingness to pay, mode age (to_thirty), mode income (one_percent), and the average NEP (38.366).</p>
+<p>WTP: <span class="math inline">\(0.5 = 0.1197 + 0.0204(Age~to~30) + 0.0088(Income~One~Percnet) + 0.0159(NEP) - 0.0011(Bid) + 7\times 10^{-4}(0)\)</span></p>
+<p>Value of one whale = 243.55 - 240.77 = $2.78 per Santa Barbara resident</p>
 </div>
 <div id="section-2" class="section level3">
 <h3>3.</h3>
-<p>Individual 40: <span class="math inline">\(0.714 = 0.1197 + 0.01(Age~to~50) + 0.0027(Income~Poor) + 0.0159(NEP) - 0.0011(Bid) + 7\times 10^{-4}(60)\)</span></p>
-<p>Individual 135: <span class="math inline">\(0.714 = 0.1197 + 0.0088(Income~One~Percent) + 0.0159(NEP) - 0.0011(Bid) + 7\times 10^{-4}(60)\)</span></p>
-<p>Individual 372: <span class="math inline">\(0.714 = 0.1197 + 0.01(Age~to~50) + 0.0468(Income~Very~Rich) + 0.0159(NEP) - 0.0011(Bid) + 7\times 10^{-4}(60)\)</span></p>
-<p>Individual 40:2.3 Individual 135:236 Individual 372: 251</p>
+<p>Three arbitrary individuals were selected from the dataset. The linear model was rearranged to output the bid, or willingness to pay, and the model inputs for age, income, and NEP were changed to match the respondent demographics. Risk reduction was set to 60% for each individual.</p>
+<p>Individual 40: <span class="math inline">\(0.5 = 0.1197 + 0.01(Age~to~50) + 0.0027(Income~Poor) + 0.0159(NEP) - 0.0011(Bid) + 7\times 10^{-4}(60)\)</span></p>
+<p>Individual 135: <span class="math inline">\(0.5 = 0.1197 + 0.0088(Income~One~Percent) + 0.0159(NEP) - 0.0011(Bid) + 7\times 10^{-4}(60)\)</span></p>
+<p>Individual 372: <span class="math inline">\(0.5 = 0.1197 + 0.01(Age~to~50) + 0.0468(Income~Very~Rich) + 0.0159(NEP) - 0.0011(Bid) + 7\times 10^{-4}(60)\)</span></p>
+<p>Solving for bid:</p>
+<p><strong>Individual 40:</strong> 202.32</p>
+<p><strong>Individual 135:</strong> 435.92</p>
+<p><strong>Individual 372:</strong> 451.08</p>
 </div>
 <div id="section-3" class="section level3">
 <h3>4</h3>
-<p>Assume average prob of voting yes is (<span class="math inline">\(p = 0.7\)</span>). Use average income bracket (middle), average age bracket (to 50), and average NEP (38.366) to find WTP:</p>
-<p><span class="math inline">\(0.714 = 0.1197 + 0.01(Age~to~50) + 0.0159(NEP) - 0.0011(Bid) + 7\times 10^{-4}(60)\)</span></p>
-<p>Average WTP in Santa Barbara households is $64.5.</p>
+<p>The mean WTP (bid) for a VSR program among all Santa Barbara households was calculated using a probability of voting yes of 0.5, the mode age (to_thirty), the mode income (one_percent), and the average NEP (38.366) in the linear model.</p>
+<p><span class="math inline">\(0.5 = 0.1197 + 0.0204(Age~to~30) + 0.0204(Age~to~30) + 0.0159(NEP) - 0.0011(Bid) + 7\times 10^{-4}(60)\)</span></p>
+<p>Median WTP in Santa Barbara households is $282.52</p>
 </div>
 <div id="section-4" class="section level3">
 <h3>5</h3>
-<p>Total Benefits: $64.5*150,000 = 9,675,000 $</p>
+<p>The total benefit for a VSR program is equal to the number of households (150,000) times the mean WTP calculated above.</p>
+<p>Total Benefits: $282.52*150,000 = 42,378,000 $</p>
 <p>Cost = $7 million</p>
-<p>Net Benefits: $9,675,000 - $7,000,000 = $2,675,000</p>
+<p>Net Benefits: $42,378,000 - $7,000,000 = $35,378,000</p>
 </div>
 <div id="section-5" class="section level3">
 <h3>6</h3>
-<p>Yes</p>
+<p>The total benefit is greater than the $7,000,000 implementation costs, so the VSR program should be implemented.</p>
 </div>
 <div id="section-6" class="section level2">
 <h2>7</h2>
-<p>20*Z = $1,000 Z = more than $50/ton</p>
+<p>Z* is equal to the costs ($1,000) divided by the tons of carbon (20) and is equal to $50 per ton.</p>
+<p>20xZ* = $1,000 Z* = $50/ton</p>
 <div id="section-7" class="section level3">
 <h3>8</h3>
 <ol style="list-style-type: lower-alpha">
 <li><p>If a risk reduction of 4% saves 1 whale, 15 whales would be saved by the program</p></li>
-<li></li>
+<li><p>$42,378,000 because the net social benefit is equal to the benefits of the whales to santa barbara plus the carbon reduction benefits minus the implementation costs. At Z*, the carbon reduction benefits are equal to the program implementation costs, so those cancel out and we are left with the total benefit calculated in Part 5.</p></li>
 </ol>
 </div>
 </div>
