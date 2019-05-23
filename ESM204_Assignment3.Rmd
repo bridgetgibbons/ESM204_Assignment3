@@ -59,7 +59,7 @@ Use p(yes) = 0.5 which will give us the median willingness to pay, mode age is t
 WTP:
 $0.5 = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(inc_onepercent, digits=4)`(Income~One~Percnet) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(0)$
 
-```{r, include=FALSE}
+```{r, echo = FALSE}
 #A reduction by 4% saves a single whale, according to the ratio in the survey. Find the WTP for vessel speed reduction programs of 0 (risk) and compare to the WTP for vessel speed reduction of 4 (risk) to find WTP for saving one whale.
 
 #p(yes) = 0.5 for median WTP:
@@ -71,15 +71,17 @@ nep_avg <- mean(survey_data$NEP)
 #38.366
 
 #bid if risk reduction is zero:
-bid_zero <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*0) - med_vote)/bid
-#241
+bid_zero <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*0) - 0.5)/bid
+bid_zero
+#240.77
 
 #Bid if risk reduction is four:
-bid_four <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*4) - med_vote)/bid
-#244
+bid_four <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*4) - 0.5)/bid
+bid_four
+#243.55
 ```
 
-Value of one whale = 244 - 4241 = $3 per Santa Barbara resident
+Value of one whale = 243.55 - 240.77 = $2.78 per Santa Barbara resident
 
 ###3.
 
@@ -103,47 +105,51 @@ Individual 372:
 $`r med_vote` = `r round(intercept, digits = 4)` + `r round(age_50, digits=4)`(Age~to~50) + `r round(inc_veryrich, digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$
 
 
-```{r, include = FALSE}
+```{r, echo = FALSE}
 
 bid_40 <- (intercept + age_50 + inc_poor + (nep*34) + (risk*60) - med_vote)/bid
-#2.3
+bid_40
+#202.32
 
 bid_135 <- (intercept + inc_onepercent + (nep*50) + (risk*60) - med_vote)/bid
-#236
+bid_135
+#435.92
 
 bid_372 <- (intercept + inc_veryrich + age_50 + (nep*48) + (risk*60) - med_vote)/bid
-#251
+bid_372
+#451.08
 
 ```
 
-Individual 40:202
-Individual 135:436
-Individual 372: 451
+Individual 40:202.32
+Individual 135:435.92
+Individual 372: 451.08
 
 ###4
 Assume median prob of voting yes is ($p = 0.5$). Use mode income bracket (one_percent), mode age bracket (to 30), and average NEP (38.366) to find WTP:
 
 $`r med_vote` = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(age_30, digits=4)`(Age~to~30) + `r round(nep, digits=4)`(NEP) - `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(60)$  
 
-```{r, include = FALSE}
+```{r, echo = FALSE}
 
 avg_bid_sb <- (intercept + age_30 + inc_onepercent + (nep*nep_avg) + (risk*60) - med_vote)/bid
+avg_bid_sb
 
-#283
+#282.52
 
 ```
 
-Average WTP in Santa Barbara households is $283.
+Median WTP in Santa Barbara households is $282.52
 
 ###5
 
 Total Benefits:
-$283*150,000 = 42,450,000 $
+$282.52*150,000 = 42,378,000 $
 
 Cost = $7 million
 
 Net Benefits:
-$42,450,000 - $7,000,000 = $35,450,000
+$42,378,000 - $7,000,000 = $35,378,000
 
 ###6
 Yes
@@ -156,5 +162,5 @@ Z = more than $50/ton
 
 a) If a risk reduction of 4% saves 1 whale, 15 whales would be saved by the program
 
-b) $42,450,000 because the net social benefit is equal to the benefits of the whales to santa barbara plus the carbon reduction benefits minus the implementation costs. At Z*, the carbon reduction benefits are equal to the program implementation costs, so those cancel out and we are left with the total benefit calculated in Part 5.
+b) $42,378,000 because the net social benefit is equal to the benefits of the whales to santa barbara plus the carbon reduction benefits minus the implementation costs. At Z*, the carbon reduction benefits are equal to the program implementation costs, so those cancel out and we are left with the total benefit calculated in Part 5.
 
